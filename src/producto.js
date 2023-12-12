@@ -2,6 +2,9 @@ const producto = document.getElementById('producto');
 const productoImagen = producto.querySelector('.producto__imagen');
 const thumbs = producto.querySelector('.producto__thumbs');
 
+// *? Color
+const color = producto.querySelector('#propiedad-color');
+
 // *? Funcionalidad de las thumbnails
 thumbs.addEventListener('click', (e)=>{
     if(e.target.tagName === 'IMG'){  //*! tagName es una propiedad que me dice cual es la etiqueta
@@ -19,3 +22,11 @@ thumbs.addEventListener('click', (e)=>{
         productoImagen.src = `../img/tennis/${nombreImagen}`;
     }
 })
+
+// *? Cambiamos la imagen del producto dependiendo de la propiedad que seleccionen
+color.addEventListener('click', (e)=>{
+    if(e.target.tagName === 'INPUT'){
+        productoImagen.src = `../img/tennis/${e.target.value}.jpg`;
+    }
+})
+
