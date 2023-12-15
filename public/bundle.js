@@ -57,7 +57,12 @@ const carrito = [];
 const renderCarrito = () => {
     ventanaCarrito.classList.add('carrito--active');
 
+    // Eliminamos todos los productos anteriores para construir el carrito desde cero.
+    const productosAnteriores = ventanaCarrito.querySelectorAll('.carrito__producto');
+    productosAnteriores.forEach((producto) => producto.remove());
+
     //console.log(carrito);
+    //Iteramos sobre cada producto del carrito y lo mostramos
     carrito.forEach((productoCarrito) => {
 
         let thumbSrc = producto.querySelectorAll('.producto__thumb-img')[0].src;
