@@ -57,7 +57,45 @@ const carrito = [];
 const renderCarrito = () => {
     ventanaCarrito.classList.add('carrito--active');
 
-    console.log(carrito);
+    //console.log(carrito);
+    carrito.forEach((productoCarrito) => {
+        
+        //creamos una plantilla del codigo HTML
+        const plantillaProducto = `
+                <div class="carrito__producto-info">
+                <img src="./img/tennis/1.jpg" alt="" class="carrito__thumb" />
+                <div>
+                <p class="carrito__producto-nombre">
+                    <span class="carrito__producto-cantidad">1 x </span>Lorem Ipsum Dolot Asimmet
+                </p>
+                <p class="carrito__producto-propiedades">
+                    Tamaño:<span>2,5</span> Color:<span>Rojo</span>
+                </p>
+                </div>
+                </div>
+                <div class="carrito__producto-contenedor-precio">
+                <button class="carrito__btn-eliminar-item" data-accion="eliminar-item-carrito">
+                <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="16"
+                    height="16"
+                    fill="currentColor"
+                    viewBox="0 0 16 16"
+                    >
+                    <path
+                        d="M2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2zm3.354 4.646L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 1 1 .708-.708z"
+                    />
+                </svg>
+                </button>
+                <p class="carrito__producto-precio">$500.00</p>
+                </div>
+            `;
+        
+        const itemCarrito = document.createElement("div");  //creamos el DIV
+        itemCarrito.classList.add("carrito__producto"); //le agregamos la clase de carrito__producto
+        itemCarrito.innerHTML = plantillaProducto; //agrega la plantilla a itemCarrito
+        ventanaCarrito.querySelector('.carrito__body').appendChild(itemCarrito); //agregamos el producto a la ventana del carrito
+    });
 };
 
 
@@ -85,7 +123,7 @@ btnAgregarAlCarrito.addEventListener('click', (e) => {
 	const color = producto.querySelector('#propiedad-color input:checked').value;
 	const tamaño = producto.querySelector('#propiedad-tamaño input:checked').value;
 
-	
+            
 			carrito.push({
 				id: id,
 				nombre: nombre,
