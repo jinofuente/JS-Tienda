@@ -10,17 +10,24 @@ const renderCarrito = () => {
 
     //console.log(carrito);
     carrito.forEach((productoCarrito) => {
+
+        let thumbSrc = producto.querySelectorAll('.producto__thumb-img')[0].src;
+        if(productoCarrito.color === "rojo"){
+            thumbSrc = '../img/thumbs/rojo.jpg';
+        }else if(productoCarrito.color === "amarillo"){
+            thumbSrc = '../img/thumbs/amarillo.jpg';
+        };
         
         //creamos una plantilla del codigo HTML
         const plantillaProducto = `
                 <div class="carrito__producto-info">
-                <img src="./img/tennis/1.jpg" alt="" class="carrito__thumb" />
+                <img src="${thumbSrc}" alt="" class="carrito__thumb" />
                 <div>
                 <p class="carrito__producto-nombre">
-                    <span class="carrito__producto-cantidad">1 x </span>Lorem Ipsum Dolot Asimmet
+                    <span class="carrito__producto-cantidad">${productoCarrito.cantidad} x </span>${productoCarrito.nombre}
                 </p>
                 <p class="carrito__producto-propiedades">
-                    Tamaño:<span>2,5</span> Color:<span>Rojo</span>
+                    Tamaño:<span>${productoCarrito.tamaño}</span> Color:<span>${productoCarrito.color}</span>
                 </p>
                 </div>
                 </div>
