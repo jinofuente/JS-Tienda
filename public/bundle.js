@@ -47,12 +47,34 @@ btnDisminuirCant.addEventListener('click', (e)=>{
     } 
 });
 
+var data = {
+    productos: [
+        {
+            id: 1,
+            nombre: 'tennis converse',
+            descripcion: 'lorem de arequiapa a puno',
+            precio: 500.0,
+            colores: ['negro', 'rojo', 'amarillo'],
+            tamaños: ['1.5', '2', '2.5', '3', '4']
+        },
+        {
+            id: 2,
+            nombre: 'tennissss converse',
+            descripcion: 'lorem de arequiapa a azangaro',
+            precio: 500.0,
+            colores: ['negro', 'rojo', 'amarillo'],
+            tamaños: ['1.5', '2', '2.5', '3', '4']
+        },
+    ]
+};
+
 const botonesAbrirCarrito = document.querySelectorAll('[data-accion="abrir-carrito"]');
 const botonesCerrarCarrito = document.querySelectorAll('[data-accion="cerrar-carrito"]');
 const ventanaCarrito = document.getElementById('carrito');
 const btnAgregarAlCarrito = document.getElementById('agregar-al-carrito');
 const producto = document.getElementById('producto');
 const carrito = [];
+const formatearMoneda = new Intl.NumberFormat('es-PE', {style: 'currency', currency: 'PEN'});
 
 const renderCarrito = () => {
     ventanaCarrito.classList.add('carrito--active');
@@ -61,10 +83,18 @@ const renderCarrito = () => {
     const productosAnteriores = ventanaCarrito.querySelectorAll('.carrito__producto');
     productosAnteriores.forEach((producto) => producto.remove());
 
-    //console.log(carrito);
     //Iteramos sobre cada producto del carrito y lo mostramos
     carrito.forEach((productoCarrito) => {
 
+        //Obtenemos el precio del archivo de producto .js
+        //cuando el id del item del carrito sea el mismo que alguno de la lista. 
+        data.productos.forEach((productoBaseDatos) => {
+            if(productoBaseDatos.id === parseInt(productoCarrito.id)){
+                productoCarrito.precio = productoBaseDatos.precio;                
+            }
+        });
+
+        //Establecemos la ruta de la imagen que vamos a querer mostrar
         let thumbSrc = producto.querySelectorAll('.producto__thumb-img')[0].src;
         if(productoCarrito.color === "rojo"){
             thumbSrc = '../img/thumbs/rojo.jpg';
@@ -98,7 +128,7 @@ const renderCarrito = () => {
                     />
                 </svg>
                 </button>
-                <p class="carrito__producto-precio">$500.00</p>
+                <p class="carrito__producto-precio">${formatearMoneda.format(productoCarrito.precio * productoCarrito.cantidad)}</p>
                 </div>
             `;
         
