@@ -164,12 +164,38 @@ btnAgregarAlCarrito.addEventListener('click', (e) => {
 	const color = producto.querySelector('#propiedad-color input:checked').value;
 	const tamaño = producto.querySelector('#propiedad-tamaño input:checked').value;
 
-            
-			carrito.push({
-				id: id,
-				nombre: nombre,
-				cantidad: cantidad,
-				color: color,
-				tamaño: tamaño,
-	});
+            if(carrito.length > 0 ){
+
+                let productoEnCarrito = false;
+
+                carrito.forEach(item => {
+                    if(item.id === id && item.nombre === nombre && item.color === color && item.tamaño === tamaño){
+                        item.cantidad += cantidad;
+                        productoEnCarrito = true;
+                    }
+                        
+                });
+
+                if(!productoEnCarrito){
+                    console.log(productoEnCarrito);
+                    carrito.push({
+                        id: id,
+                        nombre: nombre,
+                        cantidad: cantidad,
+                        color: color,
+                        tamaño: tamaño,
+                    });
+                }
+
+            }else {
+                carrito.push({
+                    id: id,
+                    nombre: nombre,
+                    cantidad: cantidad,
+                    color: color,
+                    tamaño: tamaño,
+                });
+            }
+
+			
 });
