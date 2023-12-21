@@ -5,7 +5,7 @@ const botonesCerrarCarrito = document.querySelectorAll('[data-accion="cerrar-car
 const ventanaCarrito = document.getElementById('carrito');
 const btnAgregarAlCarrito = document.getElementById('agregar-al-carrito');
 const producto = document.getElementById('producto');
-const carrito = [];
+let carrito = [];
 const formatearMoneda = new Intl.NumberFormat('es-PE', {style: 'currency', currency: 'PEN'});
 
 const renderCarrito = () => {
@@ -110,7 +110,6 @@ btnAgregarAlCarrito.addEventListener('click', (e) => {
                 });
 
                 if(!productoEnCarrito){
-                    console.log(productoEnCarrito);
                     carrito.push({
                         id: id,
                         nombre: nombre,
@@ -132,3 +131,19 @@ btnAgregarAlCarrito.addEventListener('click', (e) => {
 
 			
 });
+
+//botones eliminar del carrito
+ventanaCarrito.addEventListener("click", (e) =>{
+    if(e.target.closest('button')?.dataset.accion === 'eliminar-item-carrito'){     //min 4.30 para entender mas y min 6.00
+        const producto = e.target.closest('.carrito__producto');
+        const indexproducto = [...ventanaCarrito.querySelectorAll('.carrito__producto')].indexOf(producto);
+        
+       carrito = carrito.filter((item, index) =>{ 
+            if(index !== indexproducto){
+                return item;
+            }
+        });
+
+        renderCarrito();
+    };
+})
