@@ -76,6 +76,7 @@ const producto = document.getElementById('producto');
 let carrito = [];
 const formatearMoneda = new Intl.NumberFormat('es-PE', {style: 'currency', currency: 'PEN'});
 
+
 const renderCarrito = () => {
     ventanaCarrito.classList.add('carrito--active');
 
@@ -83,14 +84,25 @@ const renderCarrito = () => {
     const productosAnteriores = ventanaCarrito.querySelectorAll('.carrito__producto');
     productosAnteriores.forEach((producto) => producto.remove());
 
-    //Iteramos sobre cada producto del carrito y lo mostramos
-    carrito.forEach((productoCarrito) => {
+    let total = 0;
 
+    //comprobamos si hay productos
+    if(carrito.length < 1){
+        //ponemos la clase de carrito--vacio
+        ventanaCarrito.classList.add('carrito--vacio');
+    }else {
+        //eliminamos la clase de carrito vacio
+        ventanaCarrito.classList.remove('carrito--vacio');
+
+        //Iteramos sobre cada producto del carrito y lo mostramos
+        carrito.forEach((productoCarrito) => {
         //Obtenemos el precio del archivo de producto .js
         //cuando el id del item del carrito sea el mismo que alguno de la lista. 
         data.productos.forEach((productoBaseDatos) => {
             if(productoBaseDatos.id === parseInt(productoCarrito.id)){
-                productoCarrito.precio = productoBaseDatos.precio;                
+                productoCarrito.precio = productoBaseDatos.precio;   
+                
+                total += productoBaseDatos.precio * productoCarrito.cantidad;
             }
         });
 
@@ -137,8 +149,11 @@ const renderCarrito = () => {
         itemCarrito.innerHTML = plantillaProducto; //agrega la plantilla a itemCarrito
         ventanaCarrito.querySelector('.carrito__body').appendChild(itemCarrito); //agregamos el producto a la ventana del carrito
     });
-};
+    }
 
+    ventanaCarrito.querySelector('.carrito__total').innerText = formatearMoneda.format(total);
+   
+};
 
 // Abrir Carrito
 botonesAbrirCarrito.forEach((boton) => {
@@ -201,6 +216,8 @@ btnAgregarAlCarrito.addEventListener('click', (e) => {
 
 //botones eliminar del carrito
 ventanaCarrito.addEventListener("click", (e) =>{
+    // Obtenemos el boton mas cercano. Esto es por si e.target es el svg o path.
+	// Accedemos a su dataset y si es igual a eliminar-item-carrito ejecutamos el codigo.
     if(e.target.closest('button')?.dataset.accion === 'eliminar-item-carrito'){     //min 4.30 para entender mas y min 6.00
         const producto = e.target.closest('.carrito__producto');
         const indexproducto = [...ventanaCarrito.querySelectorAll('.carrito__producto')].indexOf(producto);
