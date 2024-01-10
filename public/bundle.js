@@ -248,5 +248,13 @@ ventanaCarrito.addEventListener("click", (e) =>{
 //Boton de enviar carrito
 ventanaCarrito.querySelector('#carrito__btn-comprar').addEventListener('click', () => {
     console.log('enviando peticion de compra!');
-    console.log(carrito);
+    console.log(carrito); //esto es lo que enviariamos al backend
 });
+
+class Tabs {
+    constructor(idElemento){
+        console.log("inicializando tabs" + idElemento);
+    }
+}
+
+new Tabs('mas informacion jb');
